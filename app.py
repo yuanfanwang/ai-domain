@@ -5,10 +5,23 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/recommend', methods=['GET'])
+# ダミーデータ
+PRODUCTS = [
+    {'id': 1, 'name': 'Product A', 'description': 'Description of Product A'},
+    {'id': 2, 'name': 'Product B', 'description': 'Description of Product B'}
+]
+
+@app.route('/recommend', methods=['POST'])
 def recommend():
-    recommendations = ["Product A", "Product B"]
-    return jsonify({"recommendations": recommendations})
+    data = request.get_json()
+    user_id = data['user_id']
+
+    # ユーザーに基づいた推薦ロジック（ここではダミーのロジックを使用）
+    recommended_products = {
+        'products': PRODUCTS  # 実際のロジックではユーザーに適した商品を選定する
+    }
+
+    return jsonify(recommended_products), 200
 
 @app.route('/update_model', methods=['POST'])
 def update_model():
